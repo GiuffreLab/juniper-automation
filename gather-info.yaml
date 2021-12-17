@@ -1,7 +1,6 @@
 ---
-- name: Gathering System Information via SSH
+- name: Gathering System Information
   hosts: all
-  connection: local
   gather_facts: no
   roles:
     - juniper.junos
