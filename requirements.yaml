@@ -1,6 +1,0 @@
----
-collections:
-  - name: juniper.device
-
-roles:
-  - name: juniper.junos
