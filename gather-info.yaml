@@ -1,0 +1,105 @@
+---
+- name: Gathering System Information via SSH
+  hosts: all
+  connection: local
+  gather_facts: no
+  roles:
+    - juniper.junos
+
+  vars:
+    connection_settings:
+      host: "{{ ansible_host }}"
+      port: "22"
+
+  tasks:
+  - name: Running Show Version
+    juniper_junos_command:
+      commands:
+      - "show version"
+      provider: "{{ connection_settings }}"
+    register: response
+
+  - name: Print the command output
+    debug:
+      var: response.stdout_lines
+
+  - name: Running Show System Uptime
+    juniper_junos_command:
+      commands:
+      - "show system uptime"
+      provider: "{{ connection_settings }}"
+    register: response
+
+  - name: Print the command output
+    debug:
+      var: response.stdout_lines
+
+  - name: Running System Health Snapshot
+    juniper_junos_command:
+      commands:
+      - "show chassis routing-engine"
+      provider: "{{ connection_settings }}"
+    register: response
+
+  - name: Print the command output
+    debug:
+      var: response.stdout_lines
+
+  - name: Running Show Interface
+    juniper_junos_command:
+      commands:
+      - "show interface terse"
+      provider: "{{ connection_settings }}"
+    register: response
+
+  - name: Print the command output
+    debug:
+      var: response.stdout_lines
+
+  - name: Running Show Vlans
+    juniper_junos_command:
+      commands:
+      - "show vlans"
+      provider: "{{ connection_settings }}"
+    register: response
+
+  - name: Print the command output
+    debug:
+      var: response.stdout_lines
+
+  - name: Running Show Vlans Brief
+    juniper_junos_command:
+      commands:
+      - "show vlans brief"
+      provider: "{{ connection_settings }}"
+    register: response
+
+  - name: Print the command output
+    debug:
+      var: response.stdout_lines
+
+  - name: Running Show lldp neighbor
+    juniper_junos_command:
+      commands:
+      - "show lldp neighbor"
+      provider: "{{ connection_settings }}"
+    register: response
+
+  - name: Print the command output
+    debug:
+      var: response.stdout_lines
+
+  - name: Print the command output
+    debug:
+      var: response.stdout_lines
+
+  - name: Running Show Route
+    juniper_junos_command:
+      commands:
+      - "show route"
+      provider: "{{ connection_settings }}"
+    register: response
+
+  - name: Print the command output
+    debug:
+      var: response.stdout_lines
