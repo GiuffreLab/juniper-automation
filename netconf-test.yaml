@@ -1,0 +1,16 @@
+---
+- name: Get Device Facts
+  hosts: all
+  roles:
+    - juniper.junos
+  gather_facts: no
+
+  vars:
+    netconf_port: "22"
+
+  tasks:
+    - name: Checking NETCONF connectivity
+      wait_for:
+        timeout: 5
+        host: "{{ ansible_host }}"
+        port: "{{ netconf_port }}"
