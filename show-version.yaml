@@ -1,0 +1,12 @@
+---
+- name: Gathering System Information
+  hosts: all
+  gather_facts: no
+  roles:
+    - juniper.junos
+
+  tasks:
+  - name: Running Show Version
+    juniper_junos_command:
+      commands:
+      - "show version"
