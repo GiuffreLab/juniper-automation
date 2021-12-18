@@ -2,8 +2,8 @@
 - name: Gathering System Information
   hosts: all
   gather_facts: no
-  collections:
-    - juniper.device
+  roles:
+    - juniper.junos
 
 #  vars:
 #    connection_settings:
