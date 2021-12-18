@@ -1,8 +1,8 @@
 ---
 - name: Get Device Facts
   hosts: all
-  collections:
-    - juniper.device
+  roles:
+    - juniper.junos
   gather_facts: no
 
   tasks:
