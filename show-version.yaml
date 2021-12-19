@@ -7,7 +7,7 @@
     - juniper.device
 
   tasks:
-    - name: Execute three commands.
+    - name: Execute three commands
       command:
         commands:
           - "show version"
