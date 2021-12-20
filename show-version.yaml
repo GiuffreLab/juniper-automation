@@ -3,12 +3,10 @@
   hosts: all
   connection: local
   gather_facts: no
-  collections:
-    - juniper.device
 
   tasks:
     - name: Execute three commands
-      command:
+      junos_command:
         commands:
           - "show version"
           - "show system uptime"
