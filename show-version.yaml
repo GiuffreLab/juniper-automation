@@ -1,7 +1,8 @@
 ---
 - name: Gathering System Information
   hosts: all
-  connection: local
+  roles:
+  - juniper.junos
   gather_facts: no
 
   tasks:
