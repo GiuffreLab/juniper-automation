@@ -1,3 +1,0 @@
-gcc
-python38-devel
-openldap-devel
