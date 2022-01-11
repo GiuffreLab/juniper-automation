@@ -1,15 +1,20 @@
 ---
 - name: Gathering System Information
   hosts: all
-  roles:
-  - juniper.junos
+  collections:
+  - juniper.device
+  connection: local
   gather_facts: no
 
   tasks:
     - name: Execute three commands
-      juniper_junos_command:
-        commands:
+      junipernetworks.junos.junos_command:
+        commands: show version
           - "show version"
           - "show system uptime"
           - "show interface terse"
       register: response
+
+    - name: Print the command output
+      debug:
+        var: response.stdout_lines
