@@ -3,13 +3,13 @@
   hosts: all
   connection: local
   gather_facts: no
-  collections:
-    - juniper.device
+  roles:
+    - juniper.junos
 
   tasks:
 
     - name: Execute commands
-      juniper.device.command:
+      juniper.junos.command:
         commands:
           - "show version"
       register: response
