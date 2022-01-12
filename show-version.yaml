@@ -3,12 +3,19 @@
   hosts: all
   connection: local
   gather_facts: no
-  roles:
-    - juniper.junos
+  collections:
+    - juniper.device
 
   tasks:
+
+    - name: check connectivity
+      wait_for:
+        host: "{{ inventory_hostname }}"
+        port: 830
+        timeout: 300
+
     - name: Execute commands
-      juniper_junos_command:
+      juniper.device.command:
         commands:
           - "show version"
       register: response
