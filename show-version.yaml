@@ -1,14 +1,14 @@
 ---
 - name: Gathering System Information
   hosts: all
-  collections:
-  - juniper.device
   connection: local
   gather_facts: no
+  roles:
+    - juniper.junos
 
   tasks:
     - name: Execute three commands
-      juniper.device.command:
+      juniper_junos_command:
         commands:
           - "show version"
           - "show system uptime"
