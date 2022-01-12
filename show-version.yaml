@@ -9,7 +9,7 @@
   tasks:
 
     - name: Execute commands
-      juniper.junos.command:
+      juniper_junos_command:
         commands:
           - "show version"
       register: response
