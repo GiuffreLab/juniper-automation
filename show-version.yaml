@@ -3,7 +3,7 @@
   hosts: all
   collections:
   - juniper.device
-  connection: juniper.device.pyez
+  connection: local
   gather_facts: no
 
   tasks:
