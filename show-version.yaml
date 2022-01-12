@@ -7,7 +7,7 @@
 
   tasks:
     - name: Execute three commands
-      juniper.device_command:
+      juniper_device_command:
         commands: show version
           - "show version"
           - "show system uptime"
