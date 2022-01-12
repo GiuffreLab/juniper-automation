@@ -7,12 +7,10 @@
     - juniper.junos
 
   tasks:
-    - name: Execute three commands
+    - name: Execute commands
       juniper_junos_command:
         commands:
           - "show version"
-          - "show system uptime"
-          - "show interface terse"
       register: response
 
     - name: Print the command output
