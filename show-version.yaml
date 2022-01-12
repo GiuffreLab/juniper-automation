@@ -7,7 +7,7 @@
 
   tasks:
     - name: Execute three commands
-      junipernetworks.junos.junos_command:
+      juniper_junos_command:
         commands: show version
           - "show version"
           - "show system uptime"
