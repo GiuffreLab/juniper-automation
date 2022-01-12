@@ -8,12 +8,6 @@
 
   tasks:
 
-    - name: check connectivity
-      wait_for:
-        host: "{{ inventory_hostname }}"
-        port: 830
-        timeout: 300
-
     - name: Execute commands
       juniper.device.command:
         commands:
