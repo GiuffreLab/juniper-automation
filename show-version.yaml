@@ -8,7 +8,7 @@
   tasks:
     - name: Execute three commands
       juniper_device_command:
-        commands: show version
+        commands:
           - "show version"
           - "show system uptime"
           - "show interface terse"
