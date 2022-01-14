@@ -1,9 +1,10 @@
 ---
-- name: Get Device Facts
+- name: Perform a connectivity check
   hosts: all
+  connection: local
+  gather_facts: no
   roles:
     - juniper.junos
-  gather_facts: no
 
   tasks:
     - name: Checking NETCONF connectivity
