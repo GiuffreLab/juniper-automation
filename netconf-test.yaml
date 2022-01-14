@@ -8,4 +8,4 @@
 
   tasks:
     - name: Checking NETCONF connectivity
-      wait_for: host={{ inventory_hostname }} port=830 timeout=5
+      wait_for: host={{ inventory_hostname }} port=22 timeout=5
