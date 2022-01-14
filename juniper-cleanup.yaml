@@ -1,0 +1,71 @@
+#region Copywrite
+        #######################################################################
+        #                                                                     #
+        #               Written by Brian Giuffre                              #
+        #                CIO-Radio - 12/16/2020                               #
+        #                                                                     #
+        #                                                                     #
+        #                            \                                        #
+        #                             \                                       #
+        #                              \\                                     #
+        #                               \\                                    #
+        #                                >\/7                                 #
+        #                            _.-(6'  \                                #
+        #                           (=___._/` \                               #
+        #                                )  \ |                               #
+        #                               /   / |                               #
+        #                              /    > /                               #
+        #                             j    < _\                               #
+        #                         _.-' :      ``.                             #
+        #                         \ r=._\        `.                           #
+        #                        <`\\_  \         .`-.                        #
+        #                         \ r-7  `-. ._  ' .  `\                      #
+        #                          \`,      `-.`7  7)   )                     #
+        #                           \/         \|  \'  / `-._                 #
+        #                                      ||    .'                       #
+        #                                       \\  (                         #
+        #                                        >\  >                        #
+        #                                    ,.-' >.'                         #
+        #                                   <.'_.''                           #
+        #                                     <'                              #
+        #                                                                     #
+        #######################################################################
+#endregion Copywrite
+
+---
+- name: Juniper Cleanup and Backup via SSH
+  hosts: all
+  connection: local
+  gather_facts: no
+  roles:
+    - juniper.junos
+
+  vars:
+    connection_settings:
+      host: "{{ ansible_host }}"
+      port: "22"
+      timeout: 3600
+
+  tasks:
+  - name: Request System Storage Cleanup
+    juniper_junos_command:
+      commands:
+      - "request system storage cleanup"
+      provider: "{{ connection_settings }}"
+    register: response
+
+  - name: Display Storage Cleanup Results
+    debug:
+      var: response.stdout_lines
+
+  - name: Request System Rescuse
+    juniper_junos_command:
+      commands:
+      - "request system configuration rescue save"
+      provider: "{{ connection_settings }}"
+
+  - name: Request System Snapshot
+    juniper_junos_command:
+      commands:
+      - "request system snapshot slice alternate"
+      provider: "{{ connection_settings }}"

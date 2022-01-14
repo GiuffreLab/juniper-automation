@@ -1,0 +1,85 @@
+#region Copywrite
+        #######################################################################
+        #                                                                     #
+        #               Written by Brian Giuffre                              #
+        #                CIO-Radio - 12/16/2020                               #
+        #                                                                     #
+        #                                                                     #
+        #                            \                                        #
+        #                             \                                       #
+        #                              \\                                     #
+        #                               \\                                    #
+        #                                >\/7                                 #
+        #                            _.-(6'  \                                #
+        #                           (=___._/` \                               #
+        #                                )  \ |                               #
+        #                               /   / |                               #
+        #                              /    > /                               #
+        #                             j    < _\                               #
+        #                         _.-' :      ``.                             #
+        #                         \ r=._\        `.                           #
+        #                        <`\\_  \         .`-.                        #
+        #                         \ r-7  `-. ._  ' .  `\                      #
+        #                          \`,      `-.`7  7)   )                     #
+        #                           \/         \|  \'  / `-._                 #
+        #                                      ||    .'                       #
+        #                                       \\  (                         #
+        #                                        >\  >                        #
+        #                                    ,.-' >.'                         #
+        #                                   <.'_.''                           #
+        #                                     <'                              #
+        #                                                                     #
+        #######################################################################
+#endregion Copywrite
+
+---
+- name: Juniper Junos OS Update via ssh key login
+  hosts: localhost
+  connection: local
+  gather_facts: no
+  roles:
+    - juniper.junos
+
+  vars_prompt:
+    - name: host_ip
+      prompt: Please enter the target SRX340 - SRX345 - SRX550 host IP
+      private: no
+
+  vars:
+    OS_version: "15.1X49-D230"
+    OS_package: "junos-srxsme-15.1X49-D230-domestic.tgz"
+    pkg_dir: "/home/ubuntu/docker-bg-lab-ansible/firmware-repository"
+    log_dir: "/home/ubuntu/docker-bg-lab-ansible/firmware-repository/logs"
+    netconf_port: "22"
+    wait_time: "3600"
+
+  tasks:
+    - name: Checking NETCONF connectivity to "{{ host_ip }}"
+      wait_for:
+        timeout: 5
+        host: "{{ host_ip }}"
+        port: "{{ netconf_port }}"
+
+    - name: Performing Update of Junos OS package on SRX340 - SRX345 - SRX550 with an ip address of "{{ host_ip }}"
+      juniper_junos_software:
+        host: "{{ host_ip }}"
+        port: "{{ netconf_port }}"
+        version: "{{ OS_version }}"
+        local_package: "{{ pkg_dir }}/{{ OS_package }}"
+        reboot: true
+        validate: true
+      register: response
+      notify:
+      - wait_reboot
+
+    - name: Print Results
+      debug:
+        var: response
+
+  handlers:
+    - name: wait_reboot
+      wait_for:
+        host: "{{ host_ip }}"
+        port: "{{ netconf_port }}"
+        timeout: "{{ wait_time }}"
+      when: not response.check_mode

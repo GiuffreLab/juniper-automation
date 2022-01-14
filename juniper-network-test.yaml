@@ -1,0 +1,39 @@
+---
+
+- name: "Configure Device"
+
+  hosts: all
+  connection: local
+  gather_facts: no
+  roles:
+    - juniper.junos
+
+  vars_prompt:
+    - name: username
+      private: no
+
+    - name: password
+      prompt: Junos Password
+      private: yes
+
+  vars:
+    connection_settings:
+      host: "{{ ansible_host }}"
+      user: "{{ username }}"
+      passwd: "{{ password }}"
+      port: "22"
+      timeout: 3000
+
+  tasks:
+    - name: "Configure op script"
+      juniper_junos_config:
+        config_mode: "private"
+        load: "set"
+        lines:
+          - "set system scripts op file bgp.slax"
+        provider: "{{ connection_settings }}"
+      register: response
+
+    - name: "Print the config changes"
+      debug:
+        var: response.diff_lines

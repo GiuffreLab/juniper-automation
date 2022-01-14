@@ -1,0 +1,44 @@
+#region Copywrite
+        #######################################################################
+        #                                                                     #
+        #               Written by Brian Giuffre                              #
+        #                CIO-Radio - 12/16/2020                               #
+        #                                                                     #
+        #                                                                     #
+        #                            \                                        #
+        #                             \                                       #
+        #                              \\                                     #
+        #                               \\                                    #
+        #                                >\/7                                 #
+        #                            _.-(6'  \                                #
+        #                           (=___._/` \                               #
+        #                                )  \ |                               #
+        #                               /   / |                               #
+        #                              /    > /                               #
+        #                             j    < _\                               #
+        #                         _.-' :      ``.                             #
+        #                         \ r=._\        `.                           #
+        #                        <`\\_  \         .`-.                        #
+        #                         \ r-7  `-. ._  ' .  `\                      #
+        #                          \`,      `-.`7  7)   )                     #
+        #                           \/         \|  \'  / `-._                 #
+        #                                      ||    .'                       #
+        #                                       \\  (                         #
+        #                                        >\  >                        #
+        #                                    ,.-' >.'                         #
+        #                                   <.'_.''                           #
+        #                                     <'                              #
+        #                                                                     #
+        #######################################################################
+#endregion Copywrite
+
+---
+- name: Remove Ansible account information from appliance
+  hosts: all
+  gather_facts: no
+
+  tasks:
+  - name: Deleting Account
+    junos_user:
+      name: lab-ansible
+      state: absent

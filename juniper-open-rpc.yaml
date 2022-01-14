@@ -1,0 +1,68 @@
+#region Copywrite
+        #######################################################################
+        #                                                                     #
+        #               Written by Brian Giuffre                              #
+        #                CIO-Radio - 12/16/2020                               #
+        #                                                                     #
+        #                                                                     #
+        #                            \                                        #
+        #                             \                                       #
+        #                              \\                                     #
+        #                               \\                                    #
+        #                                >\/7                                 #
+        #                            _.-(6'  \                                #
+        #                           (=___._/` \                               #
+        #                                )  \ |                               #
+        #                               /   / |                               #
+        #                              /    > /                               #
+        #                             j    < _\                               #
+        #                         _.-' :      ``.                             #
+        #                         \ r=._\        `.                           #
+        #                        <`\\_  \         .`-.                        #
+        #                         \ r-7  `-. ._  ' .  `\                      #
+        #                          \`,      `-.`7  7)   )                     #
+        #                           \/         \|  \'  / `-._                 #
+        #                                      ||    .'                       #
+        #                                       \\  (                         #
+        #                                        >\  >                        #
+        #                                    ,.-' >.'                         #
+        #                                   <.'_.''                           #
+        #                                     <'                              #
+        #                                                                     #
+        #######################################################################
+#endregion Copywrite
+
+---
+- name: Gathering System Information
+  hosts: localhost
+  connection: local
+  gather_facts: no
+  roles:
+    - juniper.junos
+
+  vars_prompt:
+    - name: host_ip
+      prompt: Please enter the target host IP
+      private: no
+
+    - name: rpc_command
+      prompt: RPC Command To run
+      private: no
+
+  vars:
+    connection_settings:
+      host: "{{ host_ip }}"
+      port: "22"
+
+  tasks:
+  - name: running "{{ rpc_command }}" RPC command against "{{ host_ip }}"
+    juniper_junos_rpc:
+      provider: "{{ connection_settings }}"
+      rpc: "{{ rpc_command }}"
+      format: text
+      dest: "{{ inventory_hostname }}_{{ rpc_command }}"
+    register: response
+
+  - name: Results of RPC command against "{{ host_ip }}"
+    debug:
+      var: response.stdout_lines

@@ -1,0 +1,52 @@
+#region Copywrite
+        #######################################################################
+        #                                                                     #
+        #               Written by Brian Giuffre                              #
+        #                CIO-Radio - 12/16/2020                               #
+        #                                                                     #
+        #                                                                     #
+        #                            \                                        #
+        #                             \                                       #
+        #                              \\                                     #
+        #                               \\                                    #
+        #                                >\/7                                 #
+        #                            _.-(6'  \                                #
+        #                           (=___._/` \                               #
+        #                                )  \ |                               #
+        #                               /   / |                               #
+        #                              /    > /                               #
+        #                             j    < _\                               #
+        #                         _.-' :      ``.                             #
+        #                         \ r=._\        `.                           #
+        #                        <`\\_  \         .`-.                        #
+        #                         \ r-7  `-. ._  ' .  `\                      #
+        #                          \`,      `-.`7  7)   )                     #
+        #                           \/         \|  \'  / `-._                 #
+        #                                      ||    .'                       #
+        #                                       \\  (                         #
+        #                                        >\  >                        #
+        #                                    ,.-' >.'                         #
+        #                                   <.'_.''                           #
+        #                                     <'                              #
+        #                                                                     #
+        #######################################################################
+#endregion Copywrite
+
+---
+- name: Get Uptime Information via SSH
+  hosts: all
+  connection: local
+  gather_facts: no
+  roles:
+    - juniper.junos
+
+  tasks:
+    - name: Get uptime
+      juniper_junos_command:
+        commands:
+        - show system uptime
+      register: response
+
+    - name: Show uptime
+      debug:
+        var: response.stdout_lines
