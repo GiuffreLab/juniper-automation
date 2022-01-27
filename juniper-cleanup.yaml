@@ -1,5 +1,5 @@
 ---
-- name: Juniper Cleanup and Backup via SSH
+- name: Juniper Cleanup and System Snapshot
   hosts: all
   connection: local
   gather_facts: no
