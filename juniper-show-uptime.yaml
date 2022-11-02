@@ -1,7 +1,7 @@
 ---
 - name: Get Uptime Information via SSH
   hosts: all
-  connection: local
+  connection: juniper.device.pyez
   gather_facts: no
   roles:
     - juniper.junos
