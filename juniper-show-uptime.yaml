@@ -2,7 +2,7 @@
 - name: Get Uptime Information via SSH
   hosts: all
   connection: local
-  gather_facts: no
+  gather_facts: false
   roles:
     - juniper.junos
 
@@ -10,9 +10,9 @@
     - name: Get uptime
       juniper_junos_command:
         commands:
-        - show system uptime
+          - show system uptime
       register: response
 
-    - name: Show uptime
+    - name: Show-uptime
       debug:
         var: response.stdout_lines
