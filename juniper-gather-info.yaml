@@ -89,10 +89,6 @@
     debug:
       var: response.stdout_lines
 
-  - name: Print the command output
-    debug:
-      var: response.stdout_lines
-
   - name: Running Show Route
     juniper_junos_command:
       commands:
