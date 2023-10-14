@@ -9,8 +9,13 @@
   tasks:
     - name: Create a dynamic list of commands and variable names
       set_fact:
-        command_list: "{{ survey_input | map('regex_replace', '(.+)', {'command': '\\1', 'var_name': 'output_\\1'}) | list }}"
-
+        command_list: "{{ [] }}"
+    
+    - name: Append commands and variable names to the list
+      set_fact:
+        command_list: "{{ command_list + [{'command': item, 'var_name': 'output_' + item}] }}"
+      loop: "{{ survey_input }}"
+    
     - name: Execute commands chosen from the survey
       juniper_junos_command:
         commands: "{{ item.command }}"
