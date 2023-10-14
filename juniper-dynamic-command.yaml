@@ -26,7 +26,7 @@
 
     - name: Print the command output
       debug:
-        var: item.results[0].stdout_lines
+        var: item.results[0].stdout_lines[0]  # Use json_query to extract stdout_lines
       loop: "{{ command_output.results }}"
       loop_control:
         label: "{{ item.item.var_name }}"  # Set the task label to the variable name for clarity
