@@ -1,5 +1,5 @@
 ---
-- name: Gathering System Information
+- name: Juniper Dynamic Command Playbook
   hosts: all
   connection: local
   gather_facts: no
