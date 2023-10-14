@@ -7,26 +7,12 @@
     - juniper.junos
 
   tasks:
-    - name: Create a dynamic list of commands and variable names
-      set_fact:
-        command_list: "{{ [] }}"
-    
-    - name: Append commands and variable names to the list
-      set_fact:
-        command_list: "{{ command_list + [{'command': item, 'var_name': 'output_' + item}] }}"
-      loop: "{{ survey_input }}"
-    
     - name: Execute commands chosen from the survey
       juniper_junos_command:
-        commands: "{{ item.command }}"
-      register: command_output
-      loop: "{{ command_list }}"
-      loop_control:
-        label: "{{ item.command }}"  # Set the task label to the command for clarity
+        commands: "{{ item }}"
+      register: response
+      loop: "{{ survey_input }}"
 
     - name: Print the command output
       debug:
-        var: item.results[0].stdout_lines[0]  # Use json_query to extract stdout_lines
-      loop: "{{ command_output.results }}"
-      loop_control:
-        label: "{{ item.item.var_name }}"  # Set the task label to the variable name for clarity
+        var: response.results | map(attribute='stdout_lines') | list
