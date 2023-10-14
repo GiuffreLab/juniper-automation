@@ -10,7 +10,7 @@
 
     - name: Execute command chosen from the survey
       juniper_junos_command:
-        commands: "{{ survey_input | default ('show version') }}"
+        commands: "{{ survey_input }}"
       register: response
 
     - name: Print the command output
