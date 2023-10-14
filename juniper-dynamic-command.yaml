@@ -7,12 +7,21 @@
     - juniper.junos
 
   tasks:
+    - name: Create a dynamic list of commands and variable names
+      set_fact:
+        command_list: "{{ survey_input | map('regex_replace', '(.+)', {'command': '\\1', 'var_name': 'output_\\1'}) | list }}"
+
     - name: Execute commands chosen from the survey
       juniper_junos_command:
-        commands: "{{ item }}"
-      register: response
-      loop: "{{ survey_input }}"
+        commands: "{{ item.command }}"
+      register: command_output
+      loop: "{{ command_list }}"
+      loop_control:
+        label: "{{ item.command }}"  # Set the task label to the command for clarity
 
     - name: Print the command output
       debug:
-        var: response.results | map(attribute='stdout_lines') | list
+        var: item.stdout_lines
+      loop: "{{ command_output.results }}"
+      loop_control:
+        label: "{{ item.item.var_name }}"  # Set the task label to the variable name for clarity
