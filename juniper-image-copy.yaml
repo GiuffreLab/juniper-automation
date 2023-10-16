@@ -40,7 +40,6 @@
         dest: "/var/tmp/"
         provider:
           timeout: 600
-          connection: netconf
 
     - name: Verify the file was uploaded
       juniper_junos_command:
