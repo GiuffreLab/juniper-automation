@@ -1,0 +1,53 @@
+---
+- name: Juniper Image Upload
+  hosts: all
+  connection: local
+  gather_facts: false
+  roles:
+    - juniper.junos
+  collections:
+    - juniper.device
+
+  vars:
+    pkg_dir: "/var/lib/awx/projects/"
+    os_package: "{{ image }}"
+
+  tasks:
+    - name: Verify Current Version of OS_package
+      juniper_junos_command:
+        commands: "show version"
+      register: version
+
+    - name: Display Current Version of OS_package
+      debug:
+        msg: "{{ version.stdout_lines }}"
+      when: version.stdout_lines is defined
+
+    - name: Show system storage space
+      juniper_junos_command:
+        commands: "show system storage"
+      register: storage
+
+    - name: Display system storage space
+      debug:
+        msg: "{{ storage.stdout_lines }}"
+      when: storage.stdout_lines is defined
+
+    - name: Copy the OS package to the device
+      junipernetworks.junos.junos_scp:
+        src: "{{ pkg_dir }}/{{ os_package }}"
+        recursive: true
+        dest: "/var/tmp/"
+        provider:
+          timeout: 600
+          connection: netconf
+
+    - name: Verify the file was uploaded
+      juniper_junos_command:
+        commands: "file list detail /var/tmp/"
+      register: storage
+
+    - name: Display the file list
+      debug:
+        msg: "{{ storage.stdout_lines }}"
+      when: storage.stdout_lines is defined
