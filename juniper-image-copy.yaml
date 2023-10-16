@@ -1,7 +1,7 @@
 ---
 - name: Juniper Image Upload
   hosts: all
-  connection: local
+  connection: ansible.netcommon.netconf
   gather_facts: false
   roles:
     - juniper.junos
