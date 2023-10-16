@@ -1,7 +1,6 @@
 ---
 - name: Juniper Image Upload
   hosts: all
-  connection: local
   gather_facts: false
   roles:
     - juniper.junos
@@ -17,6 +16,7 @@
       juniper_junos_command:
         commands: "show version"
       register: version
+      delegate_to: localhost  # Use localhost as the delegate
 
     - name: Display Current Version of OS_package
       debug:
@@ -27,6 +27,7 @@
       juniper_junos_command:
         commands: "show system storage"
       register: storage
+      delegate_to: localhost  # Use localhost as the delegate
 
     - name: Display system storage space
       debug:
@@ -37,11 +38,17 @@
       junipernetworks.junos.junos_scp:
         src: "{{ pkg_dir }}/{{ os_package }}"
         dest: "/var/tmp/"
+        host: "{{ inventory_hostname }}"  # Specify the target device
+        user: "{{ ansible_user }}"  # Specify your username
+        passwd: "{{ ansible_ssh_pass }}"  # Specify your password
+        timeout: 600  # Specify a timeout if needed
+      delegate_to: localhost  # Use localhost as the delegate
 
     - name: Verify the file was uploaded
       juniper_junos_command:
         commands: "file list detail /var/tmp/"
       register: storage
+      delegate_to: localhost  # Use localhost as the delegate
 
     - name: Display the file list
       debug:
