@@ -9,7 +9,7 @@
     - juniper.device
 
   vars:
-    pkg_dir: "/var/lib/awx/projects/"
+    pkg_dir: "/var/lib/awx/files/"
     os_package: "{{ image }}"
 
   tasks:
