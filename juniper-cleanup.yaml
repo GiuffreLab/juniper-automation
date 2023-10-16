@@ -11,11 +11,11 @@
     juniper_junos_command:
       commands:
       - "request system storage cleanup"
-    register: response
+#    register: response
 
-  - name: Display Storage Cleanup Results
-    debug:
-      var: response.stdout_lines
+#  - name: Display Storage Cleanup Results
+#    debug:
+#      var: response.stdout_lines
 
   - name: Request System Rescuse
     juniper_junos_command:
