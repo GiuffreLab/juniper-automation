@@ -12,8 +12,6 @@
       commands:
       - "request system storage cleanup"
     register: response
-    async: 300 # Maximum runtime in seconds (5 minutes)
-    poll: 15   # Check every 15 seconds if the task is completed
 
   - name: Display Storage Cleanup Results
     debug:
@@ -23,12 +21,8 @@
     juniper_junos_command:
       commands:
       - "request system configuration rescue save"
-    async: 300 # Maximum runtime in seconds (5 minutes)
-    poll: 15   # Check every 15 seconds if the task is completed
 
   - name: Request System Snapshot
     juniper_junos_command:
       commands:
       - "request system snapshot slice alternate"
-    async: 300 # Maximum runtime in seconds (5 minutes)
-    poll: 15   # Check every 15 seconds if the task is completed
