@@ -38,10 +38,11 @@
       junipernetworks.junos.junos_scp:
         src: "{{ pkg_dir }}/{{ os_package }}"
         dest: "/var/tmp/"
-        host: "{{ inventory_hostname }}"  # Specify the target device
-        user: "{{ ansible_user }}"  # Specify your username
-        passwd: "{{ ansible_ssh_pass }}"  # Specify your password
-        timeout: 600  # Specify a timeout if needed
+        provider:
+          host: "{{ inventory_hostname }}"  # Specify the target device
+          user: "{{ ansible_user }}"  # Specify your username
+          passwd: "{{ ansible_ssh_pass }}"  # Specify your password
+          timeout: 600  # Specify a timeout if needed
       delegate_to: localhost  # Use localhost as the delegate
 
     - name: Verify the file was uploaded
