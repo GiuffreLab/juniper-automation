@@ -26,3 +26,5 @@
     juniper_junos_command:
       commands:
       - "request system snapshot slice alternate"
+      provider:
+        timeout: "300"
