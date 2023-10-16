@@ -39,6 +39,7 @@
         recursive: true
         dest: "/var/tmp/"
         provider:
+          host: "{{ ansible_host }}"
           timeout: 600
 
     - name: Verify the file was uploaded
