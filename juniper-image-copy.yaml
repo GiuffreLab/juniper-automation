@@ -39,7 +39,7 @@
         src: "{{ pkg_dir }}/{{ os_package }}"
         dest: "/var/tmp/"
         provider:
-          host: "{{ inventory_hostname }}"  # Specify the target device
+          host: "{{ ansible_host }}"  # Specify the target device
           username: "{{ ansible_user }}"  # Specify your username
           password: "{{ ansible_ssh_pass }}"  # Specify your password
           timeout: 600  # Specify a timeout if needed
