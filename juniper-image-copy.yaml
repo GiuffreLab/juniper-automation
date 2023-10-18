@@ -9,7 +9,7 @@
     - juniper.device
 
   vars:
-    pkg_dir: "~/files"
+    pkg_dir: ""
     os_package: "{{ image }}"
 
   tasks:
@@ -35,7 +35,7 @@
 
     - name: Copy the OS package to the device
       junipernetworks.junos.junos_scp:
-        src: "{{ pkg_dir }}/{{ os_package }}"
+        src: "{{ pkg_dir }}{{ os_package }}"
         dest: "/var/tmp/"
         provider:
           host: "{{ ansible_host }}"  # Specify the target device
