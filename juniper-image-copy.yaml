@@ -18,20 +18,10 @@
         commands: "show version"
       register: version
 
-    - name: Display Current Version of OS_package
-      debug:
-        msg: "{{ version.stdout_lines }}"
-      when: version.stdout_lines is defined
-
     - name: Show system storage space
       juniper_junos_command:
         commands: "show system storage"
       register: storage
-
-    - name: Display system storage space
-      debug:
-        msg: "{{ storage.stdout_lines }}"
-      when: storage.stdout_lines is defined
 
     - name: Copy the OS package to the device
       junipernetworks.junos.junos_scp:
@@ -45,11 +35,6 @@
 
     - name: Verify the file was uploaded
       juniper_junos_command:
-        commands: "file list detail /var/tmp/"
+        commands: "file list detail /var/tmp/{{ image }}"
       register: storage
-
-    - name: Display the file list
-      debug:
-        msg: "{{ storage.stdout_lines }}"
-      when: storage.stdout_lines is defined
     
