@@ -10,5 +10,6 @@
     - name: Execute commands chosen from the survey
       juniper_junos_command:
         commands: "{{ item }}"
-#      register: response
+        provider:
+          timeout: "{{ timer }}"
       loop: "{{ survey_input }}"
