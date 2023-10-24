@@ -6,7 +6,7 @@
   roles:
     - juniper.junos
   tasks:
-    - name: Run show system rollback compare command
+    - name: Running show system rollback compare {{ rollback_1 }} {{ rollback_2 }} command
       juniper_junos_command:
         commands:
           - show system rollback compare {{ rollback_1 }} {{ rollback_2 }}
