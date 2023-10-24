@@ -1,7 +1,7 @@
 ---
 - name: Perform a connectivity check
   hosts: all
-  connection: local
+  connection: ansible.netcommon.netconf
   gather_facts: no
   roles:
     - juniper.junos
