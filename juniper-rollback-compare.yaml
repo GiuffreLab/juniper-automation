@@ -1,6 +1,7 @@
 ---
 - name: Compare Juniper SRX Rollbacks
   hosts: all
+  connection: ansible.netcommon.netconf
   gather_facts: no
   roles:
     - juniper.junos
