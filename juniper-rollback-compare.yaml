@@ -1,0 +1,23 @@
+---
+- name: Compare Juniper SRX Rollbacks
+  hosts: all
+  gather_facts: no
+  tasks:
+    - name: Run show system rollback compare command
+      junos_command:
+        commands:
+          - show system rollback compare {{ rollback_1 }} {{ rollback_2 }}
+      register: result
+
+    - name: Display result
+      debug:
+        var: result.stdout_lines[0]
+  
+  vars_prompt:
+    - name: rollback_1
+      prompt: "Enter first rollback number"
+      private: no
+
+    - name: rollback_2
+      prompt: "Enter second rollback number"
+      private: no
