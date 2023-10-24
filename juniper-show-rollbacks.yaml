@@ -1,13 +1,13 @@
 ---
-- name: Gather all Juniper SRX Rollbacks
+- name: Gather all Juniper SRX Commits
   hosts: all
   connection: ansible.netcommon.netconf
   gather_facts: no
   roles:
     - juniper.junos
   tasks:
-    - name: Running show system rollback command
+    - name: Running show system commit command
       juniper_junos_command:
         commands:
-          - show system rollback
-      register: rollbacks
+          - show system commit
+      register: results
