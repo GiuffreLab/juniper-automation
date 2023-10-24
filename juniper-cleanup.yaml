@@ -1,7 +1,7 @@
 ---
 - name: Juniper Cleanup and System Snapshot
   hosts: all
-  connection: local
+  connection: ansible.netcommon.netconf
   gather_facts: no
   roles:
     - juniper.junos
