@@ -1,4 +1,0 @@
-junos-eznc
-jxmlease
-jsnapy
-ansible
