@@ -1,7 +1,0 @@
----
-collections:
-  - name: juniper.device
-  - name: ansible.netcommon
-roles:
-  - name: juniper.junos
-  - name: Juniper.junos
