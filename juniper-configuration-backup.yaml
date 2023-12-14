@@ -14,7 +14,3 @@
     - name: Execute show configuration command with format set
       juniper_junos_command:
         commands: "show configuration | display set"
-
-    - name: Execute show configuration command with format json
-      juniper_junos_command:
-        commands: "show configuration | display json"
