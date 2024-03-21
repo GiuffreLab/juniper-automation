@@ -1,0 +1,44 @@
+---
+- name: Check firewalls for IP Segments
+  hosts: all
+  roles:
+   - juniper.junos
+  connection: local
+  gather_facts: false
+
+  vars_prompt:
+    - name: ip_addresses_str
+      prompt: "Enter the IP address(es) separated by comma with no spaces"
+      private: false
+
+  tasks:
+    - name: Convert the IP String to a list
+      set_fact:
+        ip_addresses: "{{ ip_addresses_str.split(',') }}"
+
+    - name: Retrieve committed configuration from firewalls
+      juniper_junos_config:
+        retrieve: committed
+        format: set
+      register: config_output
+
+    - name: Search for IP Addresses in configuration
+      set_fact:
+        matched_lines: "{{ matched_lines | default([]) + [{ 'ip': item, 'lines': (config_output.config | default('')).split('\n') |$
+      loop: "{{ ip_addresses }}"
+      loop_control:
+        loop_var: item
+
+#    - name: Display matched lines for the IP
+#      ansible.builtin.debug:
+#        msg: "IP: {{ item.ip }}, Matched Lines: {{ item.lines }}"
+#      loop: "{{ matched_lines }}"
+
+    - name: Append matched lines for each IP to a file
+      ansible.builtin.lineinfile:
+        path: "{{ inventory_hostname }}.txt"
+        line: "{{ matched_entry.1 }}"
+        create: yes
+      loop: "{{ matched_lines | subelements('lines') }}"
+      loop_control:
+        loop_var: matched_entry
