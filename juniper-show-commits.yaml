@@ -3,11 +3,17 @@
   hosts: all
   connection: ansible.netcommon.netconf
   gather_facts: no
-  roles:
-    - juniper.junos
+#  roles:
+#    - juniper.junos
+  collections:
+    - name: junipernetworks.junos
+
   tasks:
     - name: Running show system commit command
-      juniper_junos_command:
+ #     juniper_junos_command:
+ #       commands:
+ #         - show system commit
+      junipernetworks.junos.junos_command:
         commands:
-          - show system commit
+          - show version
       register: results
