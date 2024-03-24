@@ -4,7 +4,6 @@
   connection: local
   gather_facts: false
   collections:
-    - junipernetworks.junos
     - juniper.device
   tasks:
     - name: Running show system commit command
