@@ -1,8 +1,8 @@
 ---
 - name: Gather all Juniper SRX Commits
   hosts: all
-  connection: ansible.netcommon.netconf
-  #connection: local
+  #connection: ansible.netcommon.netconf
+  connection: local
   gather_facts: false
   collections:
     - junipernetworks.junos
@@ -15,4 +15,4 @@
       junipernetworks.junos.junos_command:
         commands:
           - show system commit 
-      register: results
+      #register: results
