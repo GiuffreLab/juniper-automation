@@ -1,10 +1,10 @@
 ---
 - name: Juniper Cleanup and System Snapshot
   hosts: all
-  connection: ansible.netcommon.netconf
+  connection: local
   gather_facts: no
-  roles:
-    - juniper.junos
+  collections:
+    - juniper.device
 
   tasks:
   - name: Request System Storage Cleanup
