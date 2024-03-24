@@ -11,6 +11,5 @@
     - name: Execute commands chosen from the survey
       juniper.device.command:
         commands: "{{ item }}"
-        provider:
-          timeout: "{{ timer }}"
+        timeout: "{{ timer }}"
       loop: "{{ survey_input }}"
