@@ -1,15 +1,14 @@
 ---
 - name: Gathering System Information
   hosts: all
-  connection: ansible.netcommon.netconf
+  connection: local
   gather_facts: no
-  roles:
-    - juniper.junos
+  collections:
+    - juniper.device
 
   tasks:
-
     - name: Execute commands
-      juniper_junos_command:
+      juniper.device.command:
         commands:
           - "show version"
       register: response
