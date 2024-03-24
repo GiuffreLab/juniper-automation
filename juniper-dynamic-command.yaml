@@ -1,7 +1,6 @@
 ---
 - name: Juniper Dynamic Command Playbook
   hosts: all
-  #connection: ansible.netcommon.netconf
   connection: local
   gather_facts: no
   collections:
