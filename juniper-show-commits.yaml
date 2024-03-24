@@ -1,11 +1,9 @@
 ---
 - name: Gather all Juniper SRX Commits
   hosts: all
-#  connection: ansible.netcommon.netconf
-  connection: local
-  gather_facts: no
-  roles:
-    - juniper.junos
+  connection: ansible.netcommon.netconf
+  #connection: local
+  gather_facts: false
   collections:
     - junipernetworks.junos
     - juniper.device
