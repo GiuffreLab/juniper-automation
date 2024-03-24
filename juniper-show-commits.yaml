@@ -6,7 +6,7 @@
 #  roles:
 #    - juniper.junos
   collections:
-    - name: junipernetworks.junos
+    - junipernetworks.junos
 
   tasks:
     - name: Running show system commit command
