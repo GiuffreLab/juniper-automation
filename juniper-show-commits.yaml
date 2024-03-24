@@ -6,14 +6,17 @@
 #  roles:
 #    - juniper.junos
   collections:
-    - junipernetworks.junos
-
+ #   - junipernetworks.junos
+    - juniper.device
   tasks:
     - name: Running show system commit command
  #     juniper_junos_command:
  #       commands:
  #         - show system commit
-      junipernetworks.junos.junos_command:
+ #     junipernetworks.junos.junos_command:
+ #       commands:
+ #         - show system commit
+      juniper.device.command:
         commands:
-          - show version
+          - show system commit
 #      register: results
