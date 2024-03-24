@@ -1,13 +1,13 @@
 ---
 - name: Compare Juniper SRX Rollbacks
   hosts: all
-  connection: ansible.netcommon.netconf
+  connection: local
   gather_facts: no
-  roles:
-    - juniper.junos
+  collections:
+    - juniper.device
   tasks:
     - name: Running show system rollback compare {{ rollback_1 }} {{ rollback_2 }} command
-      juniper_junos_command:
+      juniper.device.command:
         commands:
           - show system rollback compare {{ rollback_1 }} {{ rollback_2 }}
       register: result
