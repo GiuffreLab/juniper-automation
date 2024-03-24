@@ -1,14 +1,15 @@
 ---
 - name: Juniper Dynamic Command Playbook
   hosts: all
-  connection: ansible.netcommon.netconf
+  #connection: ansible.netcommon.netconf
+  connection: local
   gather_facts: no
-  roles:
-    - juniper.junos
+  collections:
+    - juniper.device
 
   tasks:
     - name: Execute commands chosen from the survey
-      juniper_junos_command:
+      juniper.device.command:
         commands: "{{ item }}"
         provider:
           timeout: "{{ timer }}"
