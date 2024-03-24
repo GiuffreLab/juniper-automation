@@ -8,23 +8,17 @@
 
   tasks:
   - name: Request System Storage Cleanup
-    juniper_junos_command:
+    juniper.device.command:
       commands:
       - "request system storage cleanup"
-#    register: response
-
-#  - name: Display Storage Cleanup Results
-#    debug:
-#      var: response.stdout_lines
 
   - name: Request System Rescuse
-    juniper_junos_command:
+    juniper.device.command:
       commands:
       - "request system configuration rescue save"
 
   - name: Request System Snapshot
-    juniper_junos_command:
+    juniper.device.command:
       commands:
       - "request system snapshot slice alternate"
-      provider:
-        timeout: "300"
+      timeout: "300"
