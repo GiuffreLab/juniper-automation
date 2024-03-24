@@ -1,16 +1,16 @@
 ---
 - name: Juniper Configuration Backup Playbook
   hosts: all
-  connection: ansible.netcommon.netconf
+  connection: local
   gather_facts: no
-  roles:
-    - juniper.junos
+  collections:
+    - juniper.device
 
   tasks:
     - name: Execute show configuration command
-      juniper_junos_command:
+      juniper.device.command:
         commands: "show configuration"
 
     - name: Execute show configuration command with format set
-      juniper_junos_command:
+      juniper.device.command:
         commands: "show configuration | display set"
