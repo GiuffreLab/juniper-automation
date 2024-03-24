@@ -19,4 +19,4 @@
       juniper.device.command:
         commands:
           - show system commit
-#      register: results
+      register: results
