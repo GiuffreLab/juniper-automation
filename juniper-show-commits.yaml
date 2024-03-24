@@ -11,7 +11,10 @@
     - juniper.device
   tasks:
     - name: Running show system commit command
-      juniper.device.command:
+      #juniper.device.command:
+        #commands:
+          #- show system commit
+      junipernetworks.junos.junos_command:
         commands:
-          - show system commit
+          - show system commit 
       register: results
