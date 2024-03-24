@@ -5,7 +5,6 @@
   gather_facts: no
   collections:
     - juniper.device
-
   tasks:
     - name: Execute commands chosen from the survey
       juniper.device.command:
