@@ -3,8 +3,6 @@
   hosts: all
   connection: ansible.netcommon.netconf
   gather_facts: no
-  roles:
-    - juniper.junos
 
   vars:
     netconf_port: "22"
