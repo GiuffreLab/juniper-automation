@@ -1,7 +1,6 @@
 ---
 - name: Gather all Juniper SRX Commits
   hosts: all
-  #connection: ansible.netcommon.netconf
   connection: local
   gather_facts: false
   collections:
@@ -9,10 +8,7 @@
     - juniper.device
   tasks:
     - name: Running show system commit command
-      #juniper.device.command:
-        #commands:
-          #- show system commit
-      junipernetworks.junos.junos_command:
+      juniper.device.command:
         commands:
-          - show system commit 
-      #register: results
+          - show system commit
+      register: results
