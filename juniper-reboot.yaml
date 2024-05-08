@@ -19,6 +19,7 @@
     - name: wait_reboot
       wait_for:
         host: "{{ ansible_host }}"
+        state: started
         port: 22
         timeout: 900
         delay: "{{ survey_minutes|int * 60 }}"
