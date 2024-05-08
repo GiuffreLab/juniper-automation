@@ -19,7 +19,7 @@
     - name: wait_reboot
       wait_for:
         host: "{{ inventory_hostname }}"
-        port: 22 
+        port: 830
         state: started
         timeout: 3600
         delay: 1
