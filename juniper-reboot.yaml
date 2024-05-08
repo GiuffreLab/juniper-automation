@@ -7,7 +7,7 @@
     - juniper.device
 
   tasks:
-    - name: Running reboot in {{ survey_minutes }} command
+    - name: Performing a reboot in {{ survey_minutes }}
       juniper.device.system:
         action: reboot
         in_min: "{{ survey_minutes }}"
