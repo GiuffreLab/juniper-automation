@@ -7,17 +7,19 @@
     - juniper.device
 
   tasks:
-    - name: Performing a reboot in {{ survey_minutes }}
+    - name: Performing a reboot in {{ survey_minutes }} minutes
       juniper.device.system:
         action: reboot
         in_min: "{{ survey_minutes }}"
       register: response
-      notify:
-        - wait_reboot
+      notify: wait_reboot
+      changed_when: response.changed
 
   handlers:
     - name: wait_reboot
       wait_for:
         host: "{{ inventory_hostname }}"
+        port: 22 
+        state: started
         timeout: 3600
-      when: not response.check_mode
+        delay: 1
