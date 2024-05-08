@@ -22,4 +22,4 @@
         state: started
         port: 22
         timeout: 900
-        delay: "{{ survey_minutes|int * 60 }}"
+        delay: "{{ survey_minutes|int * 180 }}"
