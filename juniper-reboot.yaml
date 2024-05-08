@@ -21,4 +21,4 @@
         host: "{{ ansible_host }}"
         port: 22
         timeout: 900
-        delay: "{{ survey_minutes|int + 1 }}"
+        delay: "{{ survey_minutes|int * 60 }}"
