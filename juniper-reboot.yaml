@@ -1,0 +1,23 @@
+---
+- name: Reboot a Juniper Device
+  hosts: all
+  connection: local
+  gather_facts: false
+  collections:
+    - juniper.device
+
+  tasks:
+    - name: Running reboot in {{ survey_minutes }} command
+      juniper.device.system:
+        action: reboot
+        in_min: "{{ survey_minutes }}"
+      register: response
+      notify:
+        - wait_reboot
+
+  handlers:
+    - name: wait_reboot
+      wait_for:
+        host: "{{ inventory_hostname }}"
+        timeout: 3600
+      when: not response.check_mode
