@@ -18,8 +18,7 @@
   handlers:
     - name: wait_reboot
       wait_for:
-        host: "{{ inventory_hostname }}"
-        port: 830
-        state: started
+        host: "{{ ansible_host }}"
+        port: 22
         timeout: 900
-        delay: 1
+        delay: "{{ survey_minutes|int + 1 }}"
